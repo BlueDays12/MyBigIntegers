@@ -18,7 +18,6 @@ public class MyBigIntegers {
         ThreadCpuStopWatch stopwatch = new ThreadCpuStopWatch(); // for timing an entire set of trials
         long elapsedTime = 0;
         System.gc();
-        System.out.println("X   Time");
         stopwatch.start(); // Start timer in nano secs
 
         // To open a file to write to
@@ -30,7 +29,7 @@ public class MyBigIntegers {
             return;
         }
 
-        resultsWriter.println("#X     AvgTime"); // # marks a comment in gnuplot data
+        resultsWriter.println("#Trial      AvgTime"); // # marks a comment in gnuplot data
         resultsWriter.flush();
 
 
@@ -49,7 +48,7 @@ public class MyBigIntegers {
 
                 // Create 2 big integers randomly
                 for (int j = 0; j < 2; ++j) {
-                    if (i == 0) {
+                    if (j == 0) {
                         num1 = createBigInt(num1, len1);
                     } else {
                         num2 = createBigInt(num2, len2);
@@ -67,10 +66,10 @@ public class MyBigIntegers {
                 toString(result);
             }
             elapsedTime = stopwatch.elapsedTime();
-            double averageTimePerTrialInBatch = (double) elapsedTime / (double) iterations;
-            System.out.printf("%-5f \n", averageTimePerTrialInBatch);
+            double averageTime = (double) elapsedTime / (double) iterations;
+            System.out.printf("%-5f \n", averageTime);
 
-            resultsWriter.printf("%-5d %20f \n", trial, averageTimePerTrialInBatch);
+            resultsWriter.printf("%-5d %20f \n", trial, averageTime);
             resultsWriter.flush();
         }
     }
@@ -164,10 +163,6 @@ public class MyBigIntegers {
 
         int[] sum = new int[larger+1];
 
-        ThreadCpuStopWatch stopwatch = new ThreadCpuStopWatch(); // for timing an entire set of trials
-        System.gc();
-        stopwatch.start(); // Start timer in nano secs
-
         if (lenA >= lenB) {
             i = lenA-1;
             j = lenB-1;
@@ -221,9 +216,9 @@ public class MyBigIntegers {
             sum[0] = 1;
 
 
-        //System.out.print(Arrays.toString(A));
-        //System.out.print("+");
-        //System.out.println(Arrays.toString(B));
+        System.out.print(Arrays.toString(A));
+        System.out.print("+");
+        System.out.println(Arrays.toString(B));
 
         result = Arrays.toString(sum);
 
@@ -236,9 +231,12 @@ public class MyBigIntegers {
     }
 
     public static int[] createBigInt(int[] A, int size) {
+        int max = 9, min = 0;
         for (int i = 0; i < size; ++i) {
-            int digit = (int)(Math.random()*10);
-            A[i] = digit;
+            Random digit = new Random();
+            A[i] = digit.nextInt((max-min)+1)+min;
+
+            //A[i] = (int)(Math.random()*10);
         }
         //System.out.println(Arrays.toString(A));
         return A;
