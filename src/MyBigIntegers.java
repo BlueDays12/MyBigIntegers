@@ -11,7 +11,7 @@ public class MyBigIntegers {
     static String ResultsFolderPath = "/home/matt/Results/"; // pathname to results folder
     static FileWriter resultsFile;
     static PrintWriter resultsWriter;
-    static int iterations = 10000;
+    static int iterations = 10;
 
 
     public static void main(String[] args) {
@@ -34,15 +34,16 @@ public class MyBigIntegers {
 
 
         for (int trial = 0; trial < 20; ++trial) {
+            int doubled = 1;
             for (int i = 0; i < iterations; ++i) {
                 //System.out.println("Trial: " + i);
                 // Declare variables
                 int ranNum, len1, len2, size = 0;
                 String result;
-                ranNum = createRandom();        // Create a random number for number of digits
-                int[] num1 = new int[ranNum];   // Use created random number to initialize arrays
-                ranNum = createRandom();
-                int[] num2 = new int[ranNum];
+                //ranNum = createRandom();        // Create a random number for number of digits
+                int[] num1 = new int[doubled];   // Use created random number to initialize arrays
+                //ranNum = createRandom();
+                int[] num2 = new int[doubled];
                 len1 = num1.length;
                 len2 = num2.length;
 
@@ -64,6 +65,7 @@ public class MyBigIntegers {
 
                 // Print out the string
                 toString(result);
+                doubled = doubled*2;
             }
             elapsedTime = stopwatch.elapsedTime();
             double averageTime = (double) elapsedTime / (double) iterations;
@@ -227,7 +229,7 @@ public class MyBigIntegers {
 
     public static int createRandom() {
         Random number = new Random();
-        return number.nextInt((30-10)+1)+15;
+        return number.nextInt((30-10)+1)+15;   // Set bounded random for the length of big int
     }
 
     public static int[] createBigInt(int[] A, int size) {
