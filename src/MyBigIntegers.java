@@ -11,7 +11,7 @@ public class MyBigIntegers {
     static String ResultsFolderPath = "/home/matt/Results/"; // pathname to results folder
     static FileWriter resultsFile;
     static PrintWriter resultsWriter;
-    static int iterations = 10;
+    static int iterations = 10000;
 
 
     public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class MyBigIntegers {
         resultsWriter.flush();
 
 
-        for (int trial = 0; trial < 3; ++trial) {
+        for (int trial = 0; trial < 20; ++trial) {
             for (int i = 0; i < iterations; ++i) {
                 //System.out.println("Trial: " + i);
                 // Declare variables
@@ -226,8 +226,8 @@ public class MyBigIntegers {
     }
 
     public static int createRandom() {
-        int number = (int)(Math.random()*20 + 1);
-        return number;
+        Random number = new Random();
+        return number.nextInt((30-10)+1)+15;
     }
 
     public static int[] createBigInt(int[] A, int size) {
